@@ -135,24 +135,14 @@ for epoch in range(epochs):
             epoch_val_accuracy += acc / len(val_dl)
             epoch_val_loss += loss / len(val_dl)
     
-    train_loss_array.append(epoch_loss)
-    train_acc_array.append(epoch_accuracy)
-    val_loss_array.append(epoch_val_loss)
-    val_acc_array.append(epoch_val_accuracy)
+    train_loss_array.append(float(epoch_loss))
+    train_acc_array.append(float(epoch_accuracy))
+    val_loss_array.append(float(epoch_val_loss))
+    val_acc_array.append(float(epoch_val_accuracy))
     
     print(f"Epoch : {epoch+1} - loss : {epoch_loss:.4f} - acc: {epoch_accuracy:.4f} - val_loss : {epoch_val_loss:.4f} - val_acc: {epoch_val_accuracy:.4f}\n")
-
-
-plt.plot(range(1, epochs+1), train_acc_array, label='Training accuracy')
-plt.plot(range(1, epochs+1), val_acc_array, label='Validation accuracy')
-plt.xlabel('epoch')
-plt.ylabel('accuracy')
-plt.legend()
-plt.show()
-
-plt.plot(range(1, epochs+1), train_loss_array, label='Training loss')
-plt.plot(range(1, epochs+1), val_loss_array, label='Validation loss')
-plt.xlabel('epoch')
-plt.ylabel('loss')
-plt.legend()
-plt.show()
+    
+print(train_loss_array)
+print(train_acc_array)
+print(val_loss_array)
+print(val_acc_array)
