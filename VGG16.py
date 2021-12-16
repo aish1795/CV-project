@@ -12,9 +12,7 @@ from operator import itemgetter
 from collections import OrderedDict
 import torchvision.models as models
 from PIL import Image
-# import seaborn as sns
 import matplotlib.pyplot as plt
-
 import torch
 from torch import optim,nn
 import torch.nn.functional as F
@@ -22,15 +20,11 @@ from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader, random_split
 from torchvision.utils import make_grid
 from torchvision.datasets import ImageFolder
-# pd.options.plotting.backend = "plotly"
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
-# # Loading Dataset and Applying Transforms
-
-# In[8]:
-
-
+# # Loading Dataset and Applying transforms
 data_dir = "/scratch/nr2387/CVSample/sample/data"
 TRANSFORM_IMG = {
                         'train':
@@ -58,43 +52,21 @@ val_dl = DataLoader(val_data, batch_size*2, num_workers = 1, pin_memory = True)
 test_dl = DataLoader(test_data, batch_size*2, num_workers = 1, pin_memory = True)
 
 
-# # Define Pre-trained Model
 
-# In[41]:
-
-
-model = models.resnet34(pretrained=True)
-
-
-# In[42]:
-
-
-# for param in model.parameters():
-#     param.requires_grad = False
-
+model = models.vgg16(pretrained=True)
 model.classifier[6] = nn.Linear(4096, 15)
-#     nn.Sigmoid()
-
 model.to(device)
 
 
 # # Train Model 
-
-# In[44]:
-
-
 optimizer = optim.Adam(model.parameters(),
                        lr = 0.0001)
 schedular = optim.lr_scheduler.ReduceLROnPlateau(optimizer,
                                                  factor = 0.1,
                                                  patience = 4)
-epochs = 15
+epochs = 20
 valid_loss_min = np.Inf
 weighted_loss=nn.CrossEntropyLoss()
-
-
-# In[ ]:
-
 
 for i in range(epochs):
 
@@ -148,9 +120,6 @@ for i in range(epochs):
 
 # # Class wise accuracy
 
-# In[35]:
-
-
 def class_accuracy(dataloader, model):
 
     per_class_accuracy = 0.0
@@ -173,22 +142,12 @@ def class_accuracy(dataloader, model):
 print("Train Dataset Accuracy Report")
 acc_list = class_accuracy(train_dl, model)
 print(acc_list)
-# get_acc_data(pathology_list,acc_list)
-
-
-# In[31]:
-
 
 print("Test Dataset Accuracy Report")
 acc_list = class_accuracy(test_dl, model)
 print(acc_list)
-# get_acc_data(pathology_list,acc_list)
-
-
-# In[32]:
-
 
 print("Valid Dataset Accuracy Report")
 acc_list = class_accuracy(val_dl, model)
 print(acc_list)
-# get_acc_data(pathology_list,acc_list)
+
