@@ -1,6 +1,6 @@
 # Vision Transformers on Chest Xray Dataset
 
-In this project, we evaluate Vision Transformers performance on Chest Xray Dataset.
+In this project, we evaluate Vision Transformers performance on Chest Xray Dataset. For our baseline, we use DCNN networks such as VGG16, and RESNET 34, which were pretrained on ImageNet
 
 
 
