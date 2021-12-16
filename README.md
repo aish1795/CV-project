@@ -1,3 +1,4 @@
-# CV-project
+# Vision Transformers on Chest Xray Dataset
 
-Resnet 18 Per Class Accuracy ~60-70%
+In this project, we evaluate Vision Transformers performance on Chest Xray Dataset.
+
