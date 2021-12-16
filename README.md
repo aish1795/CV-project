@@ -1,4 +1,3 @@
 # CV-project
 
-
-VGG Net Accuracy - 83%
+Resnet 18 Per Class Accuracy ~60-70%
